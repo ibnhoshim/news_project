@@ -3,8 +3,8 @@ from django.db import models
 
 
 class PublishedManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(status = News.Status.Published)
+    def published(self):
+        return self.filter(status=News.Status.Published)
 
 class Categories(models.Model):
     name = models.CharField(max_length=15)
@@ -15,8 +15,8 @@ class Categories(models.Model):
 class News(models.Model):
     
     class Status(models.TextChoices):
-        Draft = "DF", "Draft"
-        Published = "PB", "Published"
+        Draft = "DF", "draft"
+        Published = "PB", "published"
         
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
