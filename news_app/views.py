@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import News
+from .models import News, Categories
 
 def news_list(request):
      news_list = News.published.all()
@@ -14,3 +14,13 @@ def news_detail(request, id):
         'news_item': news_item
     }
     return render(request, 'news/news_detail.html', context)
+
+def homePage(request):
+    news = News.published.all()
+    categories = Categories.objects.all()
+    context = {
+        'news': news,
+        'categories': categories
+    }
+    
+    return render(request, 'news/index.html', context)
